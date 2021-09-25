@@ -11,14 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.sofka.RetoSofkaU.repositories.JugadorCrudRepository;
 import com.sofka.RetoSofkaU.repositories.PreguntaCrudRepsitory;
 
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
-
 
 @SpringBootApplication
 public class RetoSofkaUApplication implements CommandLineRunner {
@@ -37,26 +31,7 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		/*String enunciado = "¿Quien es el autor del Quijote de la Mancha?";
-		int categoria = 5;
-		int idPregunta = 5;
-		List<String> opciones  = new ArrayList<>();
-		opciones.add("Cristobal Colon");
-		opciones.add("Gabriel Garcia Marquez");
-		opciones.add("Leonardo Da Vinci");
-		opciones.add("Miguel de Cervantes Saavedra");
-		int respuestaCorrecta = 3;
 
-		Pregunta pregunta = new Pregunta(idPregunta, categoria, enunciado, opciones, respuestaCorrecta);
-		preguntaCrudRepsitory.save(pregunta);
-
-		/*for (int i = 1; i <=5 ; i++) {
-			for (int j = 1; j <= 5; j++) {
-				Pregunta pregunta = new Pregunta(j, i, enunciado, opciones, respuestaCorrecta);
-				preguntaCrudRepsitory.save(pregunta);
-
-			}
-		}*/
 		Thread.sleep(2000);
 		System.out.println("\n\nBienvenidos al Challenge");
 		System.out.println("Concurso de Preguntas y Respuestas");
@@ -68,6 +43,7 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 			System.out.println("2. Historial Jugadores");
 			System.out.println("3. Reglas");
 			System.out.println("0. Salir");
+			System.out.println("Selecciona la opción que desees:");
 			Scanner sc = new Scanner(System.in);
 			response = Integer.parseInt(sc.nextLine());
 
@@ -204,17 +180,17 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 	}
 
 	public void reglas (){
-		System.out.println("Este es un concurso de preguntas y respuestas, para ganar dinero");
+		System.out.println("Este es un concurso de preguntas y respuestas,");
 		System.out.println("El juego consiste en contestar las preguntas, y si contestas bien avanzas al siguiente nivel");
 		System.out.println("Cada nivel que avances tiene un mayor nivel de dificultad.");
 		System.out.println("Si contestas mal en cualquier nivel pierdes todo el premio");
 		System.out.println("Si te retiras en cualquier nivel, te quedas con el acumulado que lleves");
 		System.out.println("Premios:");
-		System.out.println("::Nivel 1: $50.000 ");
-		System.out.println("::Nivel 2: $250.000 ");
-		System.out.println("::Nivel 3: $500.000 ");
-		System.out.println("::Nivel 4: $1.000.000 ");
-		System.out.println("::Nivel 5: $5.000.000 ");
+		System.out.println("::Nivel 1: 100 Puntos");
+		System.out.println("::Nivel 2: 200 Puntos ");
+		System.out.println("::Nivel 3: 300 Puntos");
+		System.out.println("::Nivel 4: 400 Puntos ");
+		System.out.println("::Nivel 5: 500 Puntos ");
 		int response = 0;
 		do {
 			System.out.println("\nPara volver al menu anterior marque 0.");
