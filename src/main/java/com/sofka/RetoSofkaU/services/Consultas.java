@@ -8,11 +8,11 @@ import java.util.List;
 
 public class Consultas {
 
-    @Autowired
-    PreguntaCrudRepsitory preguntaCrudRepsitory;
+    private static PreguntaCrudRepsitory preguntaCrudRepsitory;
 
     public List<Pregunta> getByCategoriaAndIdPregunta (int categoria, int idPregunta) {
-        return preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(categoria, idPregunta);
+        List<Pregunta> pregunta = preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(categoria, idPregunta);
+        return pregunta;
     }
 
 

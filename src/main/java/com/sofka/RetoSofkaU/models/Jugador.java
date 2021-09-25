@@ -11,9 +11,9 @@ public class Jugador {
     @Id
     private String id;
     private String name;
-    private double puntaje;
+    private int puntaje;
 
-    public Jugador (String name, double puntaje){
+    public Jugador (String name, int puntaje){
         this.name = name;
         this.puntaje = puntaje;
     }
@@ -34,11 +34,12 @@ public class Jugador {
         this.name = name;
     }
 
-    public double getPuntaje() {
+    public int getPuntaje() {
         return puntaje;
     }
 
-    public void setPuntaje(double puntaje) {
-        this.puntaje = puntaje;
+    public void setPuntaje(int puntaje) {
+
+        this.puntaje = puntaje ;
     }
 }

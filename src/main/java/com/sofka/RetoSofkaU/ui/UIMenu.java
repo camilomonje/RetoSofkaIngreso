@@ -3,23 +3,23 @@ package com.sofka.RetoSofkaU.ui;
 import com.sofka.RetoSofkaU.models.Juego;
 import com.sofka.RetoSofkaU.models.Jugador;
 import com.sofka.RetoSofkaU.models.Pregunta;
-import com.sofka.RetoSofkaU.repositories.JugadorCrudRepository;
 import com.sofka.RetoSofkaU.repositories.PreguntaCrudRepsitory;
+import com.sofka.RetoSofkaU.services.Consultas;
 import com.sofka.RetoSofkaU.services.NumeroAleatorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class UIMenu {
 
     @Autowired
-    public static PreguntaCrudRepsitory preguntaCrudRepsitory;
+    PreguntaCrudRepsitory preguntaCrudRepsitory;
 
-    @Autowired
-    public static JugadorCrudRepository jugadorCrudRepository;
 
-    public static void showMenu() {
+    public  void showMenu() {
         int response = 0;
         do {
             System.out.println("1. Iniciar Juego");
@@ -52,7 +52,7 @@ public class UIMenu {
         }while(response != 0);
     }
 
-    private static Jugador registrarJugador() {
+    public  Jugador registrarJugador() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese tu nombre");
         String name = String.valueOf(sc.nextLine());
@@ -61,36 +61,55 @@ public class UIMenu {
         return jugador;
     }
 
-    public static void inicioJuego(){
+    public  void inicioJuego(){
         Jugador jugador = registrarJugador();
         System.out.println("Bienvenido " + jugador.getName() + "!!!");
         System.out.println("Tu puntaje Inicial es: " + jugador.getPuntaje());
         System.out.println();
         NumeroAleatorio numeroAleatorio = new NumeroAleatorio();
-        numeroAleatorio.setNumeroA(1, 5);
-        int nA = numeroAleatorio.getNumeroA();
         Juego juego = new Juego(1, jugador);
-        do {
-            System.out.println("Nivel " + juego.getRonda());
-            List<Pregunta> preguntaList = getPregunta(juego.getRonda(), nA);
+        //do {
+            numeroAleatorio.setNumeroA(1, 5);
+            int nA = numeroAleatorio.getNumeroA();
+            System.out.println("Nivel " + juego.getRonda() + " pregunta numero " + nA);
+            Consultas consultas = new Consultas();
 
-            //List<Pregunta> preguntaList = preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(1,2);
-            System.out.println(preguntaList.get(0).getEnunciado());
+            try {
+                consultas.getByCategoriaAndIdPregunta(1,2);
+                List<Pregunta> preguntaList =  preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(1,2);
+            } catch (Exception e) {
+                System.out.println ("El error es: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            //List<Pregunta> preguntaList =  preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(1, 1);
+            //System.out.println("Este dato" + preguntaList);
+            /*System.out.println(preguntaList.get(0).getEnunciado());
             System.out.println("1. " + preguntaList.get(0).getOpciones().get(0));
             System.out.println("2. " + preguntaList.get(0).getOpciones().get(1));
             System.out.println("3. " + preguntaList.get(0).getOpciones().get(2));
             System.out.println("4. " + preguntaList.get(0).getOpciones().get(3));
             System.out.println();
+            System.out.println("Cual es tu respuesta");
+            Scanner sc = new Scanner(System.in);
+            int opcion = Integer.parseInt(sc.nextLine());
+            if (opcion == preguntaList.get(0).getRespuestaCorrecta()){
+                System.out.println("Correcto!!");
+                jugador.setPuntaje(juego.getRonda());
+            }else {
+                System.out.println("Incorrecto");
+                juego.setFinish(true);
+            }*/
 
-        }while(!juego.isFinish());
+       // }while(!juego.isFinish());
 
     }
 
-    public static List<Pregunta> getPregunta(int categoria, int idPregunta){
-        List<Pregunta> preguntaList = preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(categoria,idPregunta);
+    /*public static List<Pregunta> getPregunta(int categoria, int idPregunta){
 
-        return preguntaList;
-    }
+        return preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(categoria,idPregunta);
+
+    }*/
 
 
 
