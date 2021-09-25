@@ -3,9 +3,7 @@ package com.sofka.RetoSofkaU;
 import com.sofka.RetoSofkaU.models.Juego;
 import com.sofka.RetoSofkaU.models.Jugador;
 import com.sofka.RetoSofkaU.models.Pregunta;
-import com.sofka.RetoSofkaU.services.Consultas;
-import com.sofka.RetoSofkaU.services.NumeroAleatorio;
-import com.sofka.RetoSofkaU.ui.UIMenu;
+import com.sofka.RetoSofkaU.utils.NumeroAleatorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +12,9 @@ import com.sofka.RetoSofkaU.repositories.JugadorCrudRepository;
 import com.sofka.RetoSofkaU.repositories.PreguntaCrudRepsitory;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,18 +37,18 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		/*String enunciado = "cuanto es 2 + 2?";
-		//int categoria = 1;
-		//int idPregunta = 2;
-		List<String> opciones  = new ArrayList<>(4);
-		opciones.add("1");
-		opciones.add("2");
-		opciones.add("3");
-		opciones.add("4");
-		int respuestaCorrecta = 4;
+		/*String enunciado = "¿Quien es el autor del Quijote de la Mancha?";
+		int categoria = 5;
+		int idPregunta = 5;
+		List<String> opciones  = new ArrayList<>();
+		opciones.add("Cristobal Colon");
+		opciones.add("Gabriel Garcia Marquez");
+		opciones.add("Leonardo Da Vinci");
+		opciones.add("Miguel de Cervantes Saavedra");
+		int respuestaCorrecta = 3;
 
-		//Pregunta pregunta = new Pregunta(idPregunta, categoria, enunciado, opciones, respuestaCorrecta);
-		//preguntaCrudRepsitory.save(pregunta);
+		Pregunta pregunta = new Pregunta(idPregunta, categoria, enunciado, opciones, respuestaCorrecta);
+		preguntaCrudRepsitory.save(pregunta);
 
 		/*for (int i = 1; i <=5 ; i++) {
 			for (int j = 1; j <= 5; j++) {
@@ -57,10 +57,9 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 
 			}
 		}*/
-
-		System.out.println("Bienvenidos al Challenge");
+		Thread.sleep(2000);
+		System.out.println("\n\nBienvenidos al Challenge");
 		System.out.println("Concurso de Preguntas y Respuestas");
-		System.out.println("\n");
 
 		int response = 0;
 		do {
@@ -86,7 +85,7 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 					while (!juego.isFinish()) {
 						numeroAleatorio.setNumeroA(1, 5);
 						int nA = numeroAleatorio.getNumeroA();
-						System.out.println("Nivel " + juego.getRonda() + " pregunta numero " + nA);
+						System.out.println("Nivel " + juego.getRonda());
 						List<Pregunta> preguntaList = preguntaCrudRepsitory.findPreguntaByCategoriaAndIdPregunta(juego.getRonda(), nA);
 						int opcion = esquemaPregunta(preguntaList);
 						if (opcion == preguntaList.get(0).getRespuestaCorrecta()){
@@ -123,7 +122,6 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 							System.out.println("Incorrecto");
 							jugador.setPuntaje(0);
 							System.out.println("Perdiste el acumulado");
-							System.out.println("acumulado " + jugador.getPuntaje());
 							jugadorCrudRepository.save(jugador);
 							juego.setFinish(true);
 						}
@@ -182,7 +180,8 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 	public static void historicoJugadores (List<Jugador> jugadorList) {
 		Scanner sc = new Scanner(System.in);
 		for (int i = 0; i < jugadorList.size(); i++) {
-			System.out.println((i+1) + ". Nombre: " + jugadorList.get(i).getName() + " Puntaje: " + jugadorList.get(i).getPuntaje());
+			System.out.println((i+1) + ". Nombre: " + jugadorList.get(i).getName() + " Puntaje: "
+					+ jugadorList.get(i).getPuntaje()+ " Fecha: " + jugadorList.get(i).getFecha());
 		}
 		int responseH = 0;
 		do {
@@ -197,7 +196,7 @@ public class RetoSofkaUApplication implements CommandLineRunner {
 
 	public static Jugador registrarJugador() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Ingrese tu nombre");
+		System.out.println("Ingresa tu nombre");
 		String name = String.valueOf(sc.nextLine());
 		Jugador jugador = new Jugador(name, 0);
 

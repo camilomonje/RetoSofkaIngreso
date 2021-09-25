@@ -9,5 +9,4 @@ public interface PreguntaCrudRepsitory extends MongoRepository<Pregunta, String>
 
     List<Pregunta> findPreguntaByCategoriaAndIdPregunta(int categoria, int idPregunta);
 
-
 }

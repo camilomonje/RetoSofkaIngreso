@@ -1,4 +1,4 @@
-package com.sofka.RetoSofkaU.services;
+package com.sofka.RetoSofkaU.utils;
 
 public class NumeroAleatorio {
     private int numeroA;
